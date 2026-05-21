@@ -1,0 +1,111 @@
+# SaveOptions <- list(
+#     includeText = TRUE
+# )
+#
+# TextDocumentSyncKind <- list(
+#     None = 0,
+#     Full = 1,
+#     Incremental = 2
+# )
+#
+# TextDocumentSyncOptions <- list(
+#     openClose = TRUE,
+#     change = TextDocumentSyncKind$Full,
+#     willSave = FALSE,
+#     willSaveWaitUntil = FALSE,
+#     save = SaveOptions
+# )
+#
+# CompletionOptions <- list(
+#     resolveProvider = TRUE,
+#     triggerCharacters = list(".", ":")
+# )
+#
+# SignatureHelpOptions <- list(
+#     triggerCharacters = list("(", ",")
+# )
+#
+# CodeLensOptions <- list(
+#     resolveProvider = FALSE
+# )
+#
+# DocumentOnTypeFormattingOptions <- list(
+#     firstTriggerCharacter = "\n",
+#     moreTriggerCharacter = list(")", "]", "}")
+# )
+#
+# DocumentLinkOptions <- list(
+#     resolveProvider = TRUE
+# )
+#
+# RenameOptions <- list(
+#     prepareProvider = TRUE
+# )
+#
+# ExecuteCommandOptions <- list(
+#     commands = NULL
+# )
+#
+# SemanticTokensOptions <- list(
+#     legend = list(
+#         tokenTypes = c(
+#             "namespace", "type", "class", "enum", "interface", "struct",
+#             "typeParameter", "parameter", "variable", "property", "enumMember",
+#             "event", "function", "method", "macro", "keyword", "modifier",
+#             "comment", "string", "number", "regexp", "operator", "decorator"
+#         ),
+#         tokenModifiers = c(
+#             "declaration", "definition", "readonly", "static", "deprecated",
+#             "abstract", "async", "modification", "documentation", "defaultLibrary"
+#         )
+#     ),
+#     full = TRUE,
+#     range = TRUE
+# )
+#
+# ServerCapabilities <- list(
+#     textDocumentSync = TextDocumentSyncOptions,
+#     hoverProvider = TRUE,
+#     completionProvider = CompletionOptions,
+#     signatureHelpProvider = SignatureHelpOptions,
+#     # typeDefinitionProvider = FALSE,
+#     # implementationProvider = FALSE,
+#     definitionProvider = TRUE,
+#     referencesProvider = TRUE,
+#     documentHighlightProvider = TRUE,
+#     documentSymbolProvider = TRUE,
+#     workspaceSymbolProvider = TRUE,
+#     codeActionProvider = TRUE,
+#     # codeLensProvider = CodeLensOptions,
+#     documentFormattingProvider = TRUE,
+#     documentRangeFormattingProvider = TRUE,
+#     documentOnTypeFormattingProvider = DocumentOnTypeFormattingOptions,
+#     renameProvider = TRUE,
+#     documentLinkProvider = DocumentLinkOptions,
+#     colorProvider = TRUE,
+#     foldingRangeProvider = TRUE,
+#     selectionRangeProvider = TRUE,
+#     callHierarchyProvider = TRUE,
+#     typeHierarchyProvider = TRUE,
+#     semanticTokensProvider = SemanticTokensOptions,
+#     # linkedEditingRangeProvider = FALSE,
+#     # monikerProvider = FALSE,
+#     # executeCommandProvider = ExecuteCommandOptions,
+#     workspace = list(
+#         workspaceFolders = list(
+#             supported = TRUE,
+#             changeNotifications = TRUE
+#         )
+#     )
+# )
+#
+# update_server_capabilities <- function(server_capabilities, client_capabilities) {
+#     # RenameOptions may only be specified if the client states that
+#     # it supports prepareSupport in its initial initialize request
+#     if (isTRUE(server_capabilities$renameProvider) &&
+#         isTRUE(client_capabilities$textDocument$rename$prepareSupport)) {
+#         server_capabilities$renameProvider <- RenameOptions
+#     }
+#
+#     server_capabilities
+# }
