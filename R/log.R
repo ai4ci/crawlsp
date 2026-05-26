@@ -81,5 +81,9 @@ Logger <- R6::R6Class(
 )
 
 
+fail = function(message) {
+  log_write(message, log_file = lsp_settings$get("log_file"))
+}
+
 # create the logger
 logger <- Logger$new()

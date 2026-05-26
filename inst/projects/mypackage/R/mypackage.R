@@ -1,3 +1,5 @@
 nothing <- function(x, y) {
-    NULL
+  NULL
 }
+
+do_nothing = function() {}

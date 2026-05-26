@@ -1,0 +1,502 @@
+{
+  "servers": {
+    "bash": {
+      "command": [
+        "bash-language-server",
+        "start"
+      ],
+      "root": "",
+      "url": "https://github.com/bash-lsp/bash-language-server",
+      "highlightingModeRegex": "^Bash$",
+      "fileGlobs": ["*.sh", "*.bash", "*.zsh", "*.ksh", "*.fish", "PKGBUILD", ".bashrc", ".bash_profile", ".zshrc", ".profile"],
+      "pathRegex": "(?i)(?:^|[/\\\\])(PKGBUILD|\\.bashrc|\\.bash_profile|\\.zshrc|\\.profile|\\.zshenv)$|(?:^|[/\\\\]).+\\.(sh|bash|zsh|ksh|fish)$"
+    },
+    "bibtex": {
+      "use": "latex",
+      "highlightingModeRegex": "^BibTeX$",
+      "fileGlobs": "*.bib",
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.bib$"
+    },
+    "c": {
+      "command": [
+        "clangd",
+        "-log=error",
+        "--background-index",
+        "--limit-results=500",
+        "--completion-style=bundled"
+      ],
+      "commandDebug": [
+        "clangd",
+        "-log=verbose",
+        "--background-index"
+      ],
+      "url": "https://clang.llvm.org/extra/clangd/",
+      "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$",
+      "fileGlobs": ["*.c", "*.h"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(c|h)$"
+    },
+    "cpp": {
+      "use": "c",
+      "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$",
+      "fileGlobs": ["*.cpp", "*.cc", "*.cxx", "*.c++", "*.C", "*.hpp", "*.hh", "*.hxx", "*.h++", "*.H", "*.tcc", "*.inl"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(cpp|cc|cxx|c\\+\\+|C|hpp|hh|hxx|h\\+\\+|H|tcc|inl)$"
+    },
+    "c-sharp": {
+      "command": [
+        "omnisharp",
+        "-lsp"
+      ],
+      "commandDebug": [
+        "omnisharp",
+        "--debug",
+        "--verbose"
+      ],
+      "rootIndicationFilePatterns": [
+        "*.sln",
+        "*.csproj"
+      ],
+      "url": "https://github.com/OmniSharp/omnisharp-roslyn",
+      "highlightingModeRegex": "^C#$",
+      "fileGlobs": ["*.cs", "*.csx"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(cs|csx)$"
+    },
+    "d": {
+      "command": [
+        "serve-d"
+      ],
+      "rootIndicationFileNames": [
+        "dub.json"
+      ],
+      "url": "https://github.com/Pure-D/serve-d",
+      "highlightingModeRegex": "^D$",
+      "fileGlobs": ["*.d", "*.di"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(d|di)$"
+    },
+    "dart": {
+      "command": [
+        "dart",
+        "language-server"
+      ],
+      "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
+      "highlightingModeRegex": "^Dart$",
+      "initializationOptions": {
+        "onlyAnalyzeProjectsWithOpenFiles": true
+      },
+      "fileGlobs": "*.dart",
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.dart$"
+    },
+    "docker": {
+      "command": [
+        "docker-langserver",
+        "--stdio"
+      ],
+      "url": "https://github.com/rcjsuen/dockerfile-language-server-nodejs",
+      "highlightingModeRegex": "^Dockerfile$",
+      "fileGlobs": ["Dockerfile", "*.dockerfile", "dockerfile.*", "Containerfile"],
+      "pathRegex": "(?i)(?:^|[/\\\\])(dockerfile|containerfile)$|(?:^|[/\\\\]).+\\.dockerfile$|(?:^|[/\\\\])dockerfile\\..+$"
+    },
+    "elm": {
+      "command": [
+        "elm-language-server"
+      ],
+      "rootIndicationFileNames": [
+        "elm.json"
+      ],
+      "url": "https://github.com/elm-tooling/elm-language-server",
+      "highlightingModeRegex": "^Elm$",
+      "fileGlobs": "*.elm",
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.elm$"
+    },
+    "fortran": {
+      "command": [
+        "fortls"
+      ],
+      "rootIndicationFileNames": [
+        ".fortls"
+      ],
+      "url": "https://github.com/hansec/fortran-language-server",
+      "highlightingModeRegex": "^Fortran.*$",
+      "fileGlobs": ["*.f", "*.for", "*.f90", "*.f95", "*.f03", "*.f08", "*.f18", "*.F", "*.FOR", "*.F90", "*.F95", "*.F03", "*.F08", "*.F18", "*.fpp", "*.FPP"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(f|for|f90|f95|f03|f08|f18|F|FOR|F90|F95|F03|F08|F18|fpp|FPP)$"
+    },
+    "fsharp": {
+      "command": [
+        "fsautocomplete",
+        "--adaptive-lsp-server-enabled"
+      ],
+      "url": "https://github.com/fsharp/FsAutoComplete",
+      "highlightingModeRegex": "^FSharp$",
+      "fileGlobs": ["*.fs", "*.fsi", "*.fsx", "*.fsscript"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(fs|fsi|fsx|fsscript)$"
+    },
+    "glsl": {
+      "command": [
+        "glslls",
+        "--stdin"
+      ],
+      "root": "",
+      "url": "https://github.com/svenstaro/glsl-language-server",
+      "highlightingModeRegex": "^GLSL$",
+      "fileGlobs": ["*.glsl", "*.vert", "*.frag", "*.geom", "*.tesc", "*.tese", "*.comp", "*.vert.glsl", "*.frag.glsl"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(glsl|vert|frag|geom|tesc|tese|comp|vert\\.glsl|frag\\.glsl)$"
+    },
+    "go": {
+      "command": [
+        "gopls"
+      ],
+      "commandDebug": [
+        "gopls",
+        "serve",
+        "-rpc.trace"
+      ],
+      "path": [
+        "%{ENV:GOPATH}/bin",
+        "%{ENV:HOME}/go/bin",
+        "%{ENV:USERPROFILE}/go/bin"
+      ],
+      "rootIndicationFileNames": [
+        "go.mod"
+      ],
+      "url": "golang.org/x/tools/gopls",
+      "highlightingModeRegex": "^Go$",
+      "fileGlobs": "*.go",
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.go$"
+    },
+    "godot": {
+      "command": [
+        "nc",
+        "127.0.0.1",
+        "6005"
+      ],
+      "url": "https://godotengine.org/",
+      "highlightingModeRegex": "^Godot$",
+      "fileGlobs": ["*.gd", "*.gdscript", "*.tres", "*.tscn", "*.gdns", "*.gdnlib"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(gd|gdscript|tres|tscn|gdns|gdnlib)$"
+    },
+    "haskell": {
+      "command": [
+        "haskell-language-server-wrapper",
+        "--lsp"
+      ],
+      "rootIndicationFileNames": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml"
+      ],
+      "url": "https://github.com/haskell/haskell-language-server",
+      "highlightingModeRegex": "^Haskell$",
+      "fileGlobs": ["*.hs", "*.lhs"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(hs|lhs)$"
+    },
+    "html": {
+      "command": [
+        "vscode-html-languageserver",
+        "--stdio"
+      ],
+      "url": "https://github.com/Microsoft/vscode/tree/main/extensions/html-language-features/server",
+      "highlightingModeRegex": "^HTML$",
+      "fileGlobs": ["*.html", "*.htm", "*.xhtml", "*.shtml", "*.phtml"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.html?$|(?:^|[/\\\\]).+\\.(xhtml|shtml|phtml)$"
+    },
+    "javascript": {
+      "command": [
+        "typescript-language-server",
+        "--stdio"
+      ],
+      "rootIndicationFileNames": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "url": "https://github.com/theia-ide/typescript-language-server",
+      "highlightingModeRegex": "^JavaScript.*$",
+      "documentLanguageId": false,
+      "fileGlobs": ["*.js", "*.mjs", "*.cjs", "*.jsx", "*.es6", "*.es"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(js|mjs|cjs|jsx|es6|es)$"
+    },
+    "json": {
+      "command": [
+        "vscode-json-languageserver",
+        "--stdio"
+      ],
+      "url": "https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server",
+      "highlightingModeRegex": "^JSON$",
+      "fileGlobs": ["*.json", "*.jsonc", "*.json5", "*.sublime-project", "*.sublime-workspace"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(json|jsonc|json5|sublime-project|sublime-workspace)$"
+    },
+    "kotlin": {
+      "command": [
+        "kotlin-language-server"
+      ],
+      "root": ".",
+      "url": "https://github.com/fwcd/kotlin-language-server",
+      "highlightingModeRegex": "^Kotlin$",
+      "fileGlobs": ["*.kt", "*.kts"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(kt|kts)$"
+    },
+    "latex": {
+      "command": [
+        "texlab"
+      ],
+      "url": "https://texlab.netlify.com/",
+      "highlightingModeRegex": "^LaTeX$",
+      "fileGlobs": ["*.tex", "*.ltx", "*.latex", "*.sty", "*.cls", "*.bbl"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(tex|ltx|latex|sty|cls|bbl)$"
+    },
+    "lua": {
+      "command": [
+        "lua-language-server"
+      ],
+      "url": "https://github.com/sumneko/lua-language-server",
+      "highlightingModeRegex": "^Lua$",
+      "fileGlobs": ["*.lua", "*.luau"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(lua|luau)$"
+    },
+    "nim": {
+      "command": [
+        "nimlsp"
+      ],
+      "path": [
+        "%{ENV:HOME}/.nimble/bin",
+        "%{ENV:USERPROFILE}/.nimble/bin"
+      ],
+      "url": "https://github.com/PMunch/nimlsp",
+      "highlightingModeRegex": "^Nim$",
+      "fileGlobs": ["*.nim", "*.nims", "*.nimble", "*.nim.cfg"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(nim|nims|nimble|nim\\.cfg)$"
+    },
+    "ocaml": {
+      "command": [
+        "ocamllsp"
+      ],
+      "url": "https://github.com/ocaml/ocaml-lsp",
+      "highlightingModeRegex": "^Objective Caml.*$",
+      "fileGlobs": ["*.ml", "*.mli", "*.mll", "*.mly", "*.eliom", "*.eliomi", "*.mlpack"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(ml|mli|mll|mly|eliom|eliomi|mlpack)$"
+    },
+    "openscad": {
+      "command": [
+        "openscad-lsp",
+        "--stdio"
+      ],
+      "path": [
+        "%{ENV:CARGO_HOME}/bin",
+        "%{ENV:HOME}/.cargo/bin",
+        "%{ENV:USERPROFILE}/.cargo/bin"
+      ],
+      "url": "https://github.com/Leathong/openscad-LSP",
+      "highlightingModeRegex": "^OpenSCAD$",
+      "fileGlobs": "*.scad",
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.scad$"
+    },
+    "perl": {
+      "command": [
+        "perl",
+        "-MPerl::LanguageServer",
+        "-e",
+        "Perl::LanguageServer::run",
+        "--"
+      ],
+      "commandDebug": [
+        "perl",
+        "-MPerl::LanguageServer",
+        "-e",
+        "Perl::LanguageServer::run",
+        "--",
+        "--debug"
+      ],
+      "url": "https://github.com/richterger/Perl-LanguageServer",
+      "highlightingModeRegex": "^Perl$",
+      "fileGlobs": ["*.pl", "*.pm", "*.t", "*.psgi", "*.pod", "Makefile.PL", "Build.PL"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(pl|pm|t|psgi|pod)$|(?:^|[/\\\\])(Makefile|Build)\\.PL$"
+    },
+    "python": {
+      "command": [
+        "pylsp",
+        "--check-parent-process"
+      ],
+      "url": "https://github.com/python-lsp/python-lsp-server",
+      "highlightingModeRegex": "^Python$",
+      "fileGlobs": ["*.py", "*.pyi", "*.pyw", "*.pyx", "*.pxd", "*.pyt", "*.tac"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(py|pyi|pyw|pyx|pxd|pyt|tac)$"
+    },
+    "qml": {
+      "command": [
+        "qmlls6"
+      ],
+      "url": "https://code.qt.io/cgit/qt/qtdeclarative.git/tree/src/qmlls",
+      "highlightingModeRegex": "^Qml$",
+      "fileGlobs": ["*.qml", "*.qmlproject", "*.qmltypes"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(qml|qmlproject|qmltypes)$"
+    },
+    "r": {
+      "command": [
+        "R",
+        "--slave",
+        "-e",
+        "languageserver::run()"
+      ],
+      "url": "https://github.com/REditorSupport/languageserver",
+      "highlightingModeRegex": "^R Script$",
+      "fileGlobs": ["*.r", "*.R", "*.rmd", "*.Rmd", "*.rsw", "*.rnw"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.[rR]$|(?:^|[/\\\\]).+\\.[rR]md$"
+    },
+    "racket": {
+      "command": [
+        "racket",
+        "-l",
+        "racket-langserver"
+      ],
+      "rootIndicationFileNames": [
+        "info.rkt"
+      ],
+      "url": "https://github.com/jeapostrophe/racket-langserver",
+      "highlightingModeRegex": "^Racket$",
+      "fileGlobs": ["*.rkt", "*.rktd", "*.rktl", "*.scrbl", "*.rkt.html"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(rkt|rktd|rktl|scrbl|rkt\\.html)$"
+    },
+    "rst": {
+      "command": [
+        "python",
+        "-m",
+        "esbonio"
+      ],
+      "initializationOptions": {
+        "server": {
+          "completion": {
+            "preferredInsertBehavior": "insert"
+          }
+        }
+      },
+      "url": "https://github.com/swyddfa/esbonio",
+      "rootIndicationFileNames": [
+        "conf.py"
+      ],
+      "highlightingModeRegex": "^reStructuredText$",
+      "fileGlobs": ["*.rst", "*.rest"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(rst|rest)$"
+    },
+    "ruby": {
+      "command": [
+        "solargraph",
+        "stdio"
+      ],
+      "rootIndicationFileNames": [
+        "Gemfile",
+        "Gemfile.lock",
+        "gems.rb",
+        "gems.lock",
+        "Rakefile"
+      ],
+      "url": "https://solargraph.org",
+      "highlightingModeRegex": "^Ruby$",
+      "fileGlobs": ["*.rb", "*.rbw", "*.rake", "*.gemspec", "*.ru", "*.erb", "Rakefile", "Gemfile", "Guardfile", "Berksfile", "Vagrantfile"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(rb|rbw|rake|gemspec|ru|erb)$|(?:^|[/\\\\])(Rakefile|Gemfile|Guardfile|Berksfile|Vagrantfile)$"
+    },
+    "rust": {
+      "command": [
+        "rust-analyzer"
+      ],
+      "path": [
+        "%{ENV:CARGO_HOME}/bin",
+        "%{ENV:HOME}/.cargo/bin",
+        "%{ENV:USERPROFILE}/.cargo/bin"
+      ],
+      "rootIndicationFileNames": [
+        "Cargo.lock",
+        "Cargo.toml"
+      ],
+      "url": "https://rust-analyzer.github.io",
+      "highlightingModeRegex": "^Rust$",
+      "fileGlobs": "*.rs",
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.rs$"
+    },
+    "scala": {
+      "command": [
+        "metals"
+      ],
+      "rootIndicationFileNames": [
+        "build.sbt"
+      ],
+      "url": "https://scalameta.org/metals/",
+      "highlightingModeRegex": "^Scala$",
+      "fileGlobs": ["*.scala", "*.sc", "*.sbt"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(scala|sc|sbt)$"
+    },
+    "terraform": {
+      "command": [
+        "terraform-ls",
+        "serve"
+      ],
+      "url": "https://github.com/hashicorp/terraform-ls",
+      "highlightingModeRegex": "^Terraform$",
+      "fileGlobs": ["*.tf", "*.tfvars", "*.tf.json", "*.tfvars.json", "*.hcl"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(tf|tfvars|tf\\.json|tfvars\\.json|hcl)$"
+    },
+    "typescript": {
+      "use": "javascript",
+      "highlightingModeRegex": "^TypeScript.*$",
+      "documentLanguageId": false,
+      "fileGlobs": ["*.ts", "*.tsx", "*.mts", "*.cts"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(ts|tsx|mts|cts)$"
+    },
+    "vala": {
+      "command": [
+        "vala-language-server"
+      ],
+      "url": "https://github.com/Prince781/vala-language-server",
+      "highlightingModeRegex": "^Vala$",
+      "fileGlobs": ["*.vala", "*.vapi"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(vala|vapi)$"
+    },
+    "yaml": {
+      "command": [
+        "yaml-language-server",
+        "--stdio"
+      ],
+      "url": "https://github.com/redhat-developer/yaml-language-server",
+      "highlightingModeRegex": "^YAML$",
+      "fileGlobs": ["*.yaml", "*.yml", "*.eyaml"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.ya?ml$|(?:^|[/\\\\]).+\\.eyaml$"
+    },
+    "zig": {
+      "command": [
+        "zls"
+      ],
+      "url": "https://github.com/zigtools/zls",
+      "highlightingModeRegex": "^Zig$",
+      "fileGlobs": ["*.zig", "*.zon"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(zig|zon)$"
+    },
+    "java": {
+      "command": [
+        "bash",
+        "java-lsp"
+      ],
+      "url": "https://github.com/georgewfraser/java-language-server",
+      "rootIndicationFileNames": [
+        "pom.xml",
+        ".git"
+      ],
+      "highlightingModeRegex": "^Java$",
+      "fileGlobs": "*.java",
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.java$"
+    },
+    "markdown": {
+      "command": [
+        "marksman",
+        "server"
+      ],
+      "rootIndicationFileNames": [
+        "SKILL.md",
+        ".marksman.toml",
+        ".git",
+        ".obsidian"
+      ],
+      "url": "https://github.com/artempyanykh/marksman",
+      "highlightingModeRegex": "^Markdown$",
+      "fileGlobs": ["*.md", "*.markdown", "*.mdown", "*.mkd", "*.mkdn", "*.mdwn", "*.mdtxt", "*.mdtext", "*.workbook"],
+      "pathRegex": "(?i)(?:^|[/\\\\]).+\\.(md|markdown|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|workbook)$"
+    }
+  }
+}

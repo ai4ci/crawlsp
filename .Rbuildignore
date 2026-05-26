@@ -10,3 +10,4 @@ man-roxygen
 ^CRAN-SUBMISSION$
 ^\.devcontainer$
 ^\.github$
+^data-raw$

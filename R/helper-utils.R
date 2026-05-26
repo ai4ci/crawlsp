@@ -1,17 +1,3 @@
-suppressPackageStartupMessages({
-  library(magrittr)
-  library(mockery)
-  library(purrr)
-  library(fs)
-})
-
-# a hack to make withr::defer_parent to work, see https://github.com/r-lib/withr/issues/123
-defer <- withr::defer
-
-expect_equivalent <- function(x, y) {
-  testthat::expect_equal(x, y, ignore_attr = TRUE)
-}
-
 symbol_range <- function(symbol) {
   if (!is.null(symbol$location)) {
     return(symbol$location$range)
@@ -20,24 +6,13 @@ symbol_range <- function(symbol) {
 }
 
 language_client <- function(
+  command,
   working_dir = getwd(),
   workspace_folders = NULL,
   diagnostics = FALSE,
   capabilities = NULL
 ) {
-  if (nzchar(Sys.getenv("R_LANGSVR_LOG"))) {
-    script <- sprintf(
-      "options(languageserver.formatting_style = NULL); languageserver::run(debug = '%s')",
-      normalizePath(Sys.getenv("R_LANGSVR_LOG"), "/", mustWork = FALSE)
-    )
-  } else {
-    script <- "options(languageserver.formatting_style = NULL); languageserver::run()"
-  }
-
-  client <- LanguageClient$new(
-    file.path(R.home("bin"), "R"),
-    c("--no-echo", "-e", script)
-  )
+  client <- LanguageClient$new(command)
 
   client$notification_handlers <- list(
     `textDocument/publishDiagnostics` = function(self, params) {
@@ -144,19 +119,11 @@ respond <- function(
   client,
   method,
   params,
-  timeout,
+  timeout = 100,
   allow_error = FALSE,
   retry = TRUE,
   retry_when = function(result) length(result) == 0
 ) {
-  if (missing(timeout)) {
-    if (Sys.getenv("R_COVR", "") == "true") {
-      # we give more time to covr
-      timeout <- 30
-    } else {
-      timeout <- 10
-    }
-  }
   storage <- new.env(parent = .GlobalEnv)
   cb <- function(self, result, error = NULL) {
     if (is.null(error)) {
