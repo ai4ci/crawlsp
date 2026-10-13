@@ -1,6 +1,6 @@
 test_that("Go to Definition works for symbols in top-level blocks", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(

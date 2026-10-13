@@ -1,6 +1,6 @@
 test_that("Expression folding rage works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -21,7 +21,7 @@ test_that("Expression folding rage works", {
 
 test_that("Section folding range works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -57,7 +57,7 @@ test_that("Section folding range works", {
 
 test_that("Comment folding range works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -90,7 +90,7 @@ test_that("Comment folding range works", {
 
 test_that("Multiple-level Folding range works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -125,7 +125,7 @@ test_that("Multiple-level Folding range works", {
 
 test_that("Multiple-level Folding range nested in blocks works well", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -179,7 +179,7 @@ test_that("Multiple-level Folding range nested in blocks works well", {
 
 test_that("two or more blank lines breaking section succession works well", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -211,7 +211,7 @@ test_that("two or more blank lines breaking section succession works well", {
 
 test_that("Folding range of binary opts works well", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c( # mix section with binary opts
@@ -254,7 +254,7 @@ test_that("Folding range of binary opts works well", {
 
 test_that("Folding range works in Rmarkdown", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(c(

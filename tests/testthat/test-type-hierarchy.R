@@ -1,6 +1,6 @@
 test_that("Type hierarchy works with R6Class", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -38,7 +38,7 @@ test_that("Type hierarchy works with R6Class", {
 
 test_that("Type hierarchy returns supertypes for R6Class", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -70,7 +70,7 @@ test_that("Type hierarchy returns supertypes for R6Class", {
 
 test_that("Type hierarchy returns subtypes for R6Class", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -105,7 +105,7 @@ test_that("Type hierarchy returns subtypes for R6Class", {
 
 test_that("Type hierarchy returns empty for non-class definitions", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(

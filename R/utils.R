@@ -121,6 +121,9 @@ uri_escape_unicode <- function(uri) {
   if (length(uri) == 0) {
     return(character())
   }
+  if (is.na(uri)) {
+    return(NA_character_)
+  }
   if (.Platform$OS.type == "windows") {
     uri <- utils::URLdecode(uri)
     Encoding(uri) <- "UTF-8"
@@ -136,7 +139,9 @@ path_from_uri <- function(uri) {
   if (length(uri) == 0) {
     return(character())
   }
-
+  if (is.na(uri)) {
+    return(NA_character_)
+  }
   if (startsWith(uri, "file:///")) {
     start_char <- if (.Platform$OS.type == "windows") 9 else 8
     path <- substr(uri, start_char, nchar(uri))
@@ -167,6 +172,9 @@ path_from_uri <- function(uri) {
 path_to_uri <- function(path) {
   if (length(path) == 0) {
     return(character())
+  }
+  if (is.na(path)) {
+    return(NA_character_)
   }
   path <- path.expand(path)
   if (.Platform$OS.type == "windows") {

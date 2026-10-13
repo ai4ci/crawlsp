@@ -5,7 +5,7 @@ get_color <- function(color) {
 
 test_that("Document color works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -46,7 +46,7 @@ test_that("Document color works", {
 
 test_that("Document color works in Rmarkdown", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(

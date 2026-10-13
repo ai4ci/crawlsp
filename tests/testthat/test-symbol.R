@@ -1,6 +1,6 @@
 test_that("Document Symbol works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -38,7 +38,7 @@ test_that("Document Symbol works", {
 
 test_that("Recognize symbols created by delayedAssign/assign/makeActiveBinding", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -75,7 +75,7 @@ test_that("Recognize symbols created by delayedAssign/assign/makeActiveBinding",
 
 test_that("Document symbols are robust to invalid source", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -101,7 +101,7 @@ test_that("Document symbols are robust to invalid source", {
 
 test_that("Document section symbol works", {
     skip_on_cran()
-    client <- language_client(capabilities = list(
+    client <- test_language_client(capabilities = list(
         textDocument = list(
             documentSymbol = list(
                 hierarchicalDocumentSymbolSupport = TRUE
@@ -169,7 +169,7 @@ test_that("Document section symbol works", {
 
 test_that("Workspace Symbol works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     defn2_file <- withr::local_tempfile(fileext = ".R")
@@ -219,7 +219,7 @@ test_that("Workspace Symbol works", {
 
 test_that("Document section symbol works in Rmarkdown", {
     skip_on_cran()
-    client <- language_client(capabilities = list(
+    client <- test_language_client(capabilities = list(
         textDocument = list(
             documentSymbol = list(
                 hierarchicalDocumentSymbolSupport = TRUE

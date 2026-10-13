@@ -1,6 +1,6 @@
 test_that("Simple hover works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -26,7 +26,7 @@ test_that("Simple hover works", {
 
 test_that("Hover on user function works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -54,7 +54,7 @@ test_that("Hover on user function works", {
 
 test_that("Hover on user function with multi-lined arguments works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -92,7 +92,7 @@ test_that("Hover on user function with multi-lined arguments works", {
 
 test_that("Hover on variable works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -139,7 +139,7 @@ test_that("Hover on variable works", {
 
 test_that("Hover on variable with leading tabs works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -171,7 +171,7 @@ test_that("Hover on variable with leading tabs works", {
 
 test_that("Hover on variable works with semi-colons", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -218,7 +218,7 @@ test_that("Hover on variable works with semi-colons", {
 
 test_that("Hover works in scope with different assignment operators", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -268,7 +268,7 @@ test_that("Hover works in scope with different assignment operators", {
 
 test_that("Hover works on both sides of assignment", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -330,7 +330,7 @@ test_that("Hover works on both sides of assignment", {
 
 test_that("Hover on function argument works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -364,7 +364,7 @@ test_that("Hover on function argument works", {
 
 test_that("Hover on user function with function argument works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -394,7 +394,7 @@ test_that("Hover on user function with function argument works", {
 
 test_that("Hover works with local function", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -436,7 +436,7 @@ test_that("Hover works with local function", {
 
 test_that("Hover on operator is ignored", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -463,7 +463,7 @@ test_that("Hover on operator is ignored", {
 
 test_that("Hover works across multiple files", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     query_file <- withr::local_tempfile(fileext = ".R")
@@ -482,7 +482,7 @@ test_that("Hover works across multiple files", {
 
 test_that("Simple hover works in Rmarkdown", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(
@@ -514,7 +514,7 @@ test_that("Simple hover works in Rmarkdown", {
 
 test_that("Hover on user function works in Rmarkdown", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(
@@ -541,7 +541,7 @@ test_that("Hover on user function works in Rmarkdown", {
 
 test_that("Hover on variable works in Rmarkdown", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(
@@ -594,7 +594,7 @@ test_that("Hover on variable works in Rmarkdown", {
 
 test_that("Hover on function argument works in Rmarkdown", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(

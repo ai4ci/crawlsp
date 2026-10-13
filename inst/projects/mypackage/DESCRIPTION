@@ -1,12 +1,14 @@
-Package: languageserver
-Title: What the Package Does (One Line, Title Case)
+Package: mypackage
+Title: Toy R Package for LSP Testing
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
+Authors@R:
+    person(given = "Test",
+           family = "User",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "test@example.com")
+Description: A minimal toy package with a small pipeline of interlinked
+    functions used to verify that the R language server protocol server
+    is working correctly.
+License: MIT
 Encoding: UTF-8
 LazyData: true

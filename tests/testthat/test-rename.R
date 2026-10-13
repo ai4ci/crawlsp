@@ -1,6 +1,6 @@
 test_that("Rename works for functions in files", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     defn_file <- withr::local_tempfile(fileext = ".R")
     defn2_file <- withr::local_tempfile(fileext = ".R")
@@ -93,7 +93,7 @@ test_that("Rename works for functions in files", {
 
 test_that("Rename works in single file", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -125,7 +125,7 @@ test_that("Rename works in single file", {
 
 test_that("Rename works in scope with different assignment operators", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -233,7 +233,7 @@ test_that("Rename works in scope with different assignment operators", {
 
 test_that("Rename in Rmarkdown works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(
@@ -274,7 +274,7 @@ test_that("Rename in Rmarkdown works", {
 
 test_that("Prepare rename works in single file", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".R")
     writeLines(

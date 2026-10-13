@@ -4,20 +4,22 @@ LanguageClient <- R6::R6Class(
   "LanguageClient",
   # inherit = LanguageBase,
   private = list(
+    ticket = 0,
     read_char_buf = raw(0),
 
     finalize = function() {
-      if (!is.null(self$process) && self$process$is_alive()) {
-        if (identical(Sys.getenv("R_COVR"), "true")) {
-          self$process$wait()
-        } else {
-          self$process$kill_tree()
+      if (self$process$is_alive()) {
+        logger$info("Shutting down server (finalise).")
+        if (!is.null(self$process) && self$process$is_alive()) {
+          if (identical(Sys.getenv("R_COVR"), "true")) {
+            self$process$wait()
+          } else {
+            self$process$kill_tree()
+          }
         }
       }
       self$request_callbacks$clear()
-    },
-
-    ticket = 0
+    }
   ),
   public = list(
     process = NULL,
@@ -26,6 +28,7 @@ LanguageClient <- R6::R6Class(
     ClientCapabilities = NULL,
     ServerCapabilities = NULL,
     diagnostics = NULL,
+
     catch_callback_error = TRUE,
     request_handlers = NULL,
     notification_handlers = NULL,
@@ -37,19 +40,25 @@ LanguageClient <- R6::R6Class(
           cmd,
           args,
           stdin = "|",
-          stdout = "|"
+          stdout = "|",
+          stderr = "|"
         )
       }
+      lapply(
+        self$process$read_error_lines(),
+        logger$error
+      )
       self$diagnostics <- collections::dict()
+      # super$initialize()
       self$register_handlers()
       self$request_callbacks <- collections::dict()
     },
-    
+
     get_ticket = function() {
       private$ticket <- private$ticket + 1
       private$ticket
     },
-    
+
     request = function(method, params) {
       Request$new(
         self$get_ticket(),
@@ -57,7 +66,7 @@ LanguageClient <- R6::R6Class(
         params
       )
     },
-    
+
     deliver = function(message, callback = NULL) {
       if (is.null(message)) {
         return(NULL)
@@ -68,19 +77,26 @@ LanguageClient <- R6::R6Class(
         logger$info("method: ", method)
       }
       self$write_text(message$format())
+
+      # Log errors
+      lapply(
+        self$process$read_error_lines(),
+        logger$error
+      )
+
       if (inherits(message, "Request") && !is.null(callback)) {
         id <- message$id
         self$request_callbacks$set(as.character(id), callback)
       }
     },
-    
+
     read_header = function() {
       header <- self$read_line()
       if (length(header) == 0 || !nzchar(header)) {
         return(NULL)
       }
       bytes <- NULL
-      
+
       while (TRUE) {
         if (length(header) == 0) {
           Sys.sleep(0.01)
@@ -88,11 +104,14 @@ LanguageClient <- R6::R6Class(
           break
         } else {
           logger$info("received: ", header)
-          
+
           if (!startsWith(header, "Content")) {
             stop("Unexpected non-empty line")
           }
-          matches <- stringi::stri_match_first_regex(header, "Content-Length: ([0-9]+)")
+          matches <- stringi::stri_match_first_regex(
+            header,
+            "Content-Length: ([0-9]+)"
+          )
           if (!is.na(matches[2])) {
             bytes <- as.integer(matches[2])
           }
@@ -101,7 +120,7 @@ LanguageClient <- R6::R6Class(
       }
       bytes
     },
-    
+
     read_content = function(nbytes) {
       data <- ""
       while (nbytes > 0) {
@@ -114,7 +133,7 @@ LanguageClient <- R6::R6Class(
       }
       data
     },
-    
+
     fetch = function(blocking = FALSE, timeout = Inf) {
       self$check_connection()
       start_time <- Sys.time()
@@ -132,11 +151,11 @@ LanguageClient <- R6::R6Class(
           }
         }
       }
-      
+
       data <- self$read_content(nbytes)
       data
     },
-    
+
     handle_raw = function(data) {
       payload <- tryCatchStack(
         jsonlite::fromJSON(data, simplifyVector = FALSE),
@@ -158,48 +177,56 @@ LanguageClient <- R6::R6Class(
         logger$info("unknown message")
       }
     },
-    
+
     handle_request = function(request) {
       id <- request$id
       method <- request$method
       params <- request$params
       if (method %in% names(self$request_handlers)) {
         logger$info("handling request: ", method)
-        tryCatchStack({
-          dispatch <- self$request_handlers[[method]]
-          dispatch(self, id, params)
-        },
-        error = function(e) {
-          logger$info("internal error:", e)
-          self$deliver(ResponseErrorMessage$new(id, "InternalError", to_string(e)))
-        }
+        tryCatchStack(
+          {
+            dispatch <- self$request_handlers[[method]]
+            dispatch(self, id, params)
+          },
+          error = function(e) {
+            logger$info("internal error:", e)
+            self$deliver(ResponseErrorMessage$new(
+              id,
+              "InternalError",
+              to_string(e)
+            ))
+          }
         )
       } else {
         logger$info("unknown request: ", method)
         self$deliver(ResponseErrorMessage$new(
-          id, "MethodNotFound", paste0("unknown request ", method)
+          id,
+          "MethodNotFound",
+          paste0("unknown request ", method)
         ))
       }
     },
-    
+
     handle_notification = function(notification) {
       method <- notification$method
       params <- notification$params
       if (method %in% names(self$notification_handlers)) {
         logger$info("handling notification: ", method)
-        tryCatchStack({
-          dispatch <- self$notification_handlers[[method]]
-          dispatch(self, params)
-        },
-        error = function(e) {
-          logger$info("internal error:", e)
-        }
+        tryCatchStack(
+          {
+            dispatch <- self$notification_handlers[[method]]
+            dispatch(self, params)
+          },
+          error = function(e) {
+            logger$info("internal error:", e)
+          }
         )
       } else {
         logger$info("unknown notification: ", method)
       }
     },
-    
+
     handle_response = function(response) {
       id <- response$id
       callback <- tryCatch(
@@ -233,7 +260,7 @@ LanguageClient <- R6::R6Class(
           }
         }
       }
-    }
+    },
 
     check_connection = function() {
       if (!is.null(self$process) && !self$process$is_alive()) {
@@ -339,6 +366,14 @@ LanguageClient <- R6::R6Class(
       self$welcome()
     },
 
+    shutdown = function() {
+      logger$info("Shutting down server.")
+      self$request("shutdown", NULL)
+      if (self$process$is_alive()) {
+        self$process$kill_tree()
+      }
+    },
+
     run = function() {
       # placeholder
     }
@@ -350,3 +385,40 @@ LanguageClient$set("public", "register_handlers", function() {
   self$request_handlers <- list()
   self$notification_handlers <- list()
 })
+
+
+language_client <- function(
+  cmd,
+  args,
+  working_dir = getwd(),
+  workspace_folders = NULL,
+  diagnostics = FALSE,
+  capabilities = NULL
+) {
+  client <- LanguageClient$new(cmd, args)
+
+  client$notification_handlers <- list(
+    `textDocument/publishDiagnostics` = function(self, params) {
+      uri <- params$uri
+      diagnostics <- params$diagnostics
+      self$diagnostics$set(uri, diagnostics)
+    }
+  )
+
+  client$start(
+    working_dir = working_dir,
+    workspace_folders = workspace_folders,
+    capabilities = capabilities
+  )
+  client$catch_callback_error <- FALSE
+  # initialize request
+  data <- client$fetch(blocking = TRUE)
+  client$handle_raw(data)
+  client %>% notify("initialized")
+  client %>%
+    notify(
+      "workspace/didChangeConfiguration",
+      list(settings = list(diagnostics = diagnostics))
+    )
+  client
+}

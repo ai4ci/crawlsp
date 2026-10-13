@@ -1,6 +1,6 @@
 test_that("Formatting document works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -26,7 +26,7 @@ test_that("Formatting document works", {
 
 test_that("Formatting selection works for complete line", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -49,7 +49,7 @@ test_that("Formatting selection works for complete line", {
 
 test_that("Formatting selection works for partial line", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -71,7 +71,7 @@ test_that("Formatting selection works for partial line", {
 
 test_that("Formatting selection preserves initial indentation", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -95,7 +95,7 @@ test_that("Formatting selection preserves initial indentation", {
 
 test_that("Formatting selection does not add indentation to multi-line string", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -119,7 +119,7 @@ test_that("Formatting selection does not add indentation to multi-line string", 
 
 test_that("On type formatting works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(c(
@@ -180,7 +180,7 @@ test_that("On type formatting works", {
 
 test_that("Formatting in Rmarkdown works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     single_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(
@@ -205,7 +205,7 @@ test_that("Formatting in Rmarkdown works", {
 
 test_that("On type formatting works in Rmarkdown", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".Rmd")
     writeLines(c(

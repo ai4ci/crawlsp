@@ -1,6 +1,6 @@
 test_that("Document highlight works for symbols in top-level blocks", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(

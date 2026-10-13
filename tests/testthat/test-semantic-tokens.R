@@ -1,6 +1,6 @@
 test_that("Semantic tokens full works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -23,7 +23,7 @@ test_that("Semantic tokens full works", {
 
 test_that("Semantic tokens range works", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(
@@ -49,7 +49,7 @@ test_that("Semantic tokens range works", {
 
 test_that("Semantic tokens contain expected types", {
     skip_on_cran()
-    client <- language_client()
+    client <- test_language_client()
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines(

@@ -11,7 +11,7 @@ test_that("Works with unicode path", {
 
     dir <- file.path(tempdir(), "\U4E2D \U6587")
     dir.create(dir, showWarnings = FALSE, recursive = TRUE)
-    client <- language_client(dir)
+    client <- test_language_client(dir)
 
     defn_file <- withr::local_tempfile(pattern = "\U4E2D\U6587", fileext = ".R")
     defn2_file <- withr::local_tempfile(pattern = "\U4E2D\U6587", fileext = ".R")

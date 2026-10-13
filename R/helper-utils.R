@@ -1,57 +1,3 @@
-symbol_range <- function(symbol) {
-  if (!is.null(symbol$location)) {
-    return(symbol$location$range)
-  }
-  symbol$range
-}
-
-language_client <- function(
-  command,
-  working_dir = getwd(),
-  workspace_folders = NULL,
-  diagnostics = FALSE,
-  capabilities = NULL
-) {
-  client <- LanguageClient$new(command)
-
-  client$notification_handlers <- list(
-    `textDocument/publishDiagnostics` = function(self, params) {
-      uri <- params$uri
-      diagnostics <- params$diagnostics
-      self$diagnostics$set(uri, diagnostics)
-    }
-  )
-
-  client$start(
-    working_dir = working_dir,
-    workspace_folders = workspace_folders,
-    capabilities = capabilities
-  )
-  client$catch_callback_error <- FALSE
-  # initialize request
-  data <- client$fetch(blocking = TRUE)
-  client$handle_raw(data)
-  client %>% notify("initialized")
-  client %>%
-    notify(
-      "workspace/didChangeConfiguration",
-      list(settings = list(diagnostics = diagnostics))
-    )
-  withr::defer_parent({
-    client %>% respond("shutdown", NULL, retry = FALSE)
-    if (client$process$is_alive()) {
-      if (identical(Sys.getenv("R_COVR"), "true")) {
-        client$process$wait()
-      } else {
-        client$process$wait(1000)
-        client$process$kill()
-      }
-    }
-  })
-  client
-}
-
-
 notify <- function(client, method, params = NULL) {
   client$deliver(Notification$new(method, params))
   invisible(client)
@@ -119,19 +65,25 @@ respond <- function(
   client,
   method,
   params,
-  timeout = 100,
-  allow_error = FALSE,
+  allow_errors = lsp_settings$get("debug") || lsp_settings$get("trace"),
+  timeout = 10,
   retry = TRUE,
-  retry_when = function(result) length(result) == 0
+  retry_when = function(result) !is.null(result$code) && result$code == -32002
 ) {
   storage <- new.env(parent = .GlobalEnv)
   cb <- function(self, result, error = NULL) {
     if (is.null(error)) {
       storage$done <- TRUE
       storage$result <- result
-    } else if (allow_error) {
+      storage$success <- TRUE
+    } else if (allow_errors) {
       storage$done <- TRUE
       storage$result <- error
+      storage$success <- FALSE
+    } else {
+      storage$done <- TRUE
+      storage$result <- list()
+      storage$success <- FALSE
     }
   }
 
@@ -154,22 +106,23 @@ respond <- function(
     remaining <- (start_time + timeout) - Sys.time()
   }
   result <- storage$result
-  if (retry && retry_when(result)) {
-    remaining <- (start_time + timeout) - Sys.time()
-    if (remaining < 0) {
-      fail("timeout when obtaining desired response")
-      return(NULL)
+  if (!storage$success) {
+    if (retry && retry_when(result)) {
+      remaining <- (start_time + timeout) - Sys.time()
+      if (remaining < 0) {
+        fail("timeout when obtaining desired response")
+        return(NULL)
+      }
+      Sys.sleep(0.2)
+      return(Recall(
+        client,
+        method,
+        params,
+        remaining,
+        retry,
+        retry_when
+      ))
     }
-    Sys.sleep(0.2)
-    return(Recall(
-      client,
-      method,
-      params,
-      remaining,
-      allow_error,
-      retry,
-      retry_when
-    ))
   }
   return(result)
 }
@@ -256,7 +209,8 @@ respond_references <- function(
     "textDocument/references",
     list(
       textDocument = list(uri = uri),
-      position = list(line = pos[1], character = pos[2])
+      position = list(line = pos[1], character = pos[2]),
+      context = list(includeDeclaration = TRUE)
     ),
     ...
   )
@@ -647,6 +601,59 @@ respond_type_hierarchy_subtypes <- function(client, item, ...) {
     client,
     "typeHierarchy/subtypes",
     list(item = item),
+    ...
+  )
+}
+
+respond_goto_type_definition <- function(
+  client,
+  path,
+  pos,
+  ...,
+  uri = path_to_uri(path)
+) {
+  respond(
+    client,
+    "textDocument/typeDefinition",
+    list(
+      textDocument = list(uri = uri),
+      position = list(line = pos[1], character = pos[2])
+    ),
+    ...
+  )
+}
+
+respond_goto_implementation <- function(
+  client,
+  path,
+  pos,
+  ...,
+  uri = path_to_uri(path)
+) {
+  respond(
+    client,
+    "textDocument/implementation",
+    list(
+      textDocument = list(uri = uri),
+      position = list(line = pos[1], character = pos[2])
+    ),
+    ...
+  )
+}
+
+respond_execute_command <- function(
+  client,
+  command,
+  arguments = list(),
+  ...
+) {
+  respond(
+    client,
+    "workspace/executeCommand",
+    list(
+      command = command,
+      arguments = arguments
+    ),
     ...
   )
 }

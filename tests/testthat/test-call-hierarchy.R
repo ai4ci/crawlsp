@@ -1,6 +1,6 @@
 test_that("Call hierarchy works in single file", {
   skip_on_cran()
-  client <- language_client()
+  client <- test_language_client()
 
   single_file <- withr::local_tempfile(fileext = ".R")
   writeLines(
@@ -93,7 +93,7 @@ test_that("Call hierarchy works in single file", {
 
 test_that("Call hierarchy works in multiple files", {
   skip_on_cran()
-  client <- language_client()
+  client <- test_language_client()
 
   file1 <- withr::local_tempfile(fileext = ".R")
   file2 <- withr::local_tempfile(fileext = ".R")
@@ -170,7 +170,7 @@ test_that("Call hierarchy works in multiple files", {
 
 test_that("Call hierarchy incoming calls works", {
   skip_on_cran()
-  client <- language_client()
+  client <- test_language_client()
 
   single_file <- withr::local_tempfile(fileext = ".R")
   writeLines(
@@ -264,7 +264,7 @@ test_that("Call hierarchy incoming calls works", {
 
 test_that("Call hierarchy outgoing calls works", {
   skip_on_cran()
-  client <- language_client()
+  client <- test_language_client()
 
   single_file <- withr::local_tempfile(fileext = ".R")
   writeLines(

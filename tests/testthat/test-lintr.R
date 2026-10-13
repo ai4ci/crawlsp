@@ -2,7 +2,7 @@ test_that("lintr works", {
     skip_on_cran()
 
     dir <- tempdir()
-    client <- language_client(working_dir = dir, diagnostics = TRUE)
+    client <- test_language_client(working_dir = dir, diagnostics = TRUE)
 
     lintr_file <- file.path(dir, ".lintr")
     on.exit(unlink(lintr_file), add = TRUE)
@@ -30,7 +30,7 @@ test_that("lintr config file works", {
 
     writeLines("linters: linters_with_defaults()", lintr_file)
 
-    client <- language_client(working_dir = dir, diagnostics = TRUE)
+    client <- test_language_client(working_dir = dir, diagnostics = TRUE)
 
     temp_file <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
     writeLines("a=1", temp_file)
@@ -47,7 +47,7 @@ test_that("lintr config file works", {
 
     writeLines("linters: linters_with_defaults(assignment_linter=NULL)", lintr_file)
 
-    client <- language_client(working_dir = dir, diagnostics = TRUE)
+    client <- test_language_client(working_dir = dir, diagnostics = TRUE)
 
     temp_file <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
     writeLines("a=1", temp_file)
@@ -63,7 +63,7 @@ test_that("lintr config file works", {
 
     writeLines("linters: list()", lintr_file)
 
-    client <- language_client(working_dir = dir, diagnostics = TRUE)
+    client <- test_language_client(working_dir = dir, diagnostics = TRUE)
 
     temp_file <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
     writeLines("a=1", temp_file)
@@ -78,7 +78,7 @@ test_that("lintr config file works", {
 
 test_that("lintr is disabled", {
     skip_on_cran()
-    client <- language_client(diagnostics = FALSE)
+    client <- test_language_client(diagnostics = FALSE)
 
     temp_file <- withr::local_tempfile(fileext = ".R")
     writeLines("a = 1", temp_file)

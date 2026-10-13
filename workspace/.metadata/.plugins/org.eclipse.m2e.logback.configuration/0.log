@@ -1,0 +1,15 @@
+2026-05-27 13:03:07,433 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is not available. Remote download required.
+2026-05-27 13:03:08,608 [Worker-2: Initialize Workspace] WARN  o.e.m.c.i.markers.MarkerUtils - Could not find OSGI service for org.eclipse.m2e.core.internal.markers.IEditorMarkerService
+2026-05-27 13:03:08,951 [Worker-2: Initialize Workspace] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.example:hello-java:1.0-SNAPSHOT @ /home/vp22681/Git/crawlsp/inst/projects/hello-java/pom.xml.
+2026-05-27 13:03:09,050 [Worker-2: Initialize Workspace] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /hello-java/src/main/java
+2026-05-27 13:03:09,050 [Worker-2: Initialize Workspace] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /hello-java/src/test/java
+2026-05-27 13:03:09,098 [Worker-2: Initialize Workspace] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 0 sec
+2026-05-27 13:03:09,187 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2026-05-27 13:03:09,187 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/vp22681/Git/crawlsp/inst/projects/hello-java/src/main/resources
+2026-05-27 13:03:09,189 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2026-05-27 13:03:09,190 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/vp22681/Git/crawlsp/inst/projects/hello-java/src/test/resources
+2026-05-28 10:55:12,383 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2026-05-28 10:55:13,335 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2026-05-28 10:55:13,335 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/vp22681/Git/crawlsp/inst/projects/hello-java/src/main/resources
+2026-05-28 10:55:13,337 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2026-05-28 10:55:13,337 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/vp22681/Git/crawlsp/inst/projects/hello-java/src/test/resources

@@ -1,6 +1,6 @@
 test_that("Null workspace folder works", {
   skip_on_cran()
-  client <- language_client(NULL)
+  client <- test_language_client(NULL)
 
   temp_file <- withr::local_tempfile(fileext = ".R")
   writeLines(
@@ -40,7 +40,7 @@ test_that("Changes in non-open files in package workspace are handled", {
     file1
   )
 
-  client <- language_client(dir)
+  client <- test_language_client(dir)
 
   result <- client %>%
     respond_signature(file1, c(3, 5), retry_when = function(result) {
@@ -148,7 +148,7 @@ test_that("Multiple workspace folders are loaded and handled", {
   dir.create(file.path(dir2, "R"))
   writeLines(c("fun_wk2 <- function(y) { y }"), file.path(dir2, "R", "test2.R"))
 
-  client <- language_client(NULL, workspace_folders = c(dir1, dir2))
+  client <- test_language_client(NULL, workspace_folders = c(dir1, dir2))
 
   # Give language server a moment to parse initially loaded workspace files
   Sys.sleep(0.5)
@@ -209,7 +209,7 @@ test_that("Multiple workspace folders are loaded and handled", {
 test_that("Fallback workspace cleans up documents when directory is added", {
   skip_on_cran()
 
-  client <- language_client(NULL, workspace_folders = NULL)
+  client <- test_language_client(NULL, workspace_folders = NULL)
 
   dir1 <- tempfile()
   dir.create(dir1)

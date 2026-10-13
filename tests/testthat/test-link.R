@@ -2,7 +2,7 @@ test_that("Document link works", {
     skip_on_cran()
 
     dir <- tempdir()
-    client <- language_client(dir)
+    client <- test_language_client(dir)
 
     src_file1 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
     src_file2 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
@@ -74,7 +74,7 @@ test_that("Document link works with raw strings", {
     skip_if(getRversion() < "4.0.0")
 
     dir <- tempdir()
-    client <- language_client(dir)
+    client <- test_language_client(dir)
 
     src_file1 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
     src_file2 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
@@ -145,7 +145,7 @@ test_that("Document link works in Rmarkdown", {
     skip_on_cran()
 
     dir <- tempdir()
-    client <- language_client(working_dir = dir)
+    client <- test_language_client(working_dir = dir)
 
     src_file1 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
     src_file2 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
@@ -222,7 +222,7 @@ test_that("Document link works with null workspace folder", {
     skip_on_cran()
 
     dir <- tempdir()
-    client <- language_client(NULL)
+    client <- test_language_client(NULL)
 
     src_file1 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
     src_file2 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
@@ -290,7 +290,7 @@ test_that("Document link works with untitled document", {
     skip_on_cran()
 
     dir <- tempdir()
-    client <- language_client(dir)
+    client <- test_language_client(dir)
 
     src_file1 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")
     src_file2 <- withr::local_tempfile(tmpdir = dir, fileext = ".R")

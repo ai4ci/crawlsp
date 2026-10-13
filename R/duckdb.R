@@ -207,7 +207,7 @@ delete = function(db_tbl, data) {
 
 .stanza = function(con, df, sep = " AND ") {
   sql = paste0(
-    sapply(names(df), function(nm) {
+    sapply(colnames(df), function(nm) {
       sprintf(
         "%s=%s",
         DBI::dbQuoteIdentifier(con, nm),
@@ -287,7 +287,9 @@ compare_and_set = function(db_tbl, initial, final) {
 }
 
 .nz_named_list = function(lst) {
-  return(is.list(lst) && !is.null(names(lst)) && length(list) > 0)
+  return(
+    is.list(lst) && !is.null(names(as.list(lst))) && length(as.list(list)) > 0
+  )
 }
 
 # tmp = tasks %>% compare_and_set(list(process="PENDING"), list(process="IN_PROGRESS"))

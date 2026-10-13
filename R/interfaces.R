@@ -354,6 +354,56 @@ rename_params <- function(uri, position, new_name) {
   )
 }
 
+#' Parameters for type hierarchy supertypes / subtypes and  requests
+#'
+#' @template uri
+#' @template position
+#' @param new_name a character
+#' @noRd
+hierarchy_params <- function(symbol_information) {
+  tmp_start_position = position(
+    line = purrr::pluck(
+      symbol_information,
+      "location",
+      "range",
+      "start",
+      "line"
+    ),
+    character = purrr::pluck(
+      symbol_information,
+      "location",
+      "range",
+      "start",
+      "character"
+    )
+  )
+  tmp_end_position = position(
+    line = purrr::pluck(symbol_information, "location", "range", "end", "line"),
+    character = purrr::pluck(
+      symbol_information,
+      "location",
+      "range",
+      "end",
+      "character"
+    )
+  )
+
+  tmp_range = range(
+    start = tmp_start_position,
+    end = tmp_end_position
+  )
+  structure(
+    list(
+      name = purrr::pluck(symbol_information, "name"),
+      kind = purrr::pluck(symbol_information, "kind"),
+      uri = purrr::pluck(symbol_information, "location", "uri"),
+      range = tmp_range,
+      selectionRange = tmp_range
+    ),
+    class = "hierarchy_params"
+  )
+}
+
 # Notification parameters -------------------------------------------------
 
 #' Parameters for didOpen notifications
