@@ -1,4 +1,0 @@
-INDEX VERSION 1.131+/home/vp22681/Git/crawlsp/workspace/.metadata/.plugins/org.eclipse.jdt.core
-4292392451.index
-3842426239.index
-3291371168.index
